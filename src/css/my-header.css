@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'KOROAD_M';
+    src: url(/src/font/KOROAD_Medium.otf) format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KOROAD_B';
+    src: url(/src/font/KOROAD_Bold.otf) format('opentype');
+    font-style: normal;
+}
+
+/* my-header 컴포넌트 스타일 */
+my-header header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #FFFFFF;
+    color: black;
+    padding: 15px 24px;
+    display: flex;
+    flex-direction: column;
+    /* 세로로 쌓기 */
+    align-items: center;
+    /* 가로 가운데 정렬 */
+    gap: 38px;
+
+}
+
+my-header h1 {
+    font-size: 80px;
+    width: 57px;
+    height: 96px;
+    font-style: bold;
+    font-family: "KOROAD_M";
+}
+
+/* nav 가 아니고 ul에 flex를 줘야함 */
+/* nav 의 자식은 ul 뿐이라 적용이 안됨 */
+my-header nav>ul {
+    display: flex;
+    gap: 8px;
+    /* Space/200 */
+    padding: 0;
+    list-style: none;
+}
+
+my-header nav>ul>li {
+    height: 32px;
+    padding: 0 8px;
+    /* Space/200, 좌우 여백 */
+    border-radius: 8px;
+    /* Radius/200 */
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+
+
+nav li ul {
+    display: none;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    width: 131px;
+    background: white;
+}
+
+nav li ul li {
+    padding: 8px;
+}
+
+nav li:hover>ul {
+    display: block;
+}
