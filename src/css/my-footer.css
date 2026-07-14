@@ -1,0 +1,114 @@
+/* 폰트 */
+@font-face {
+    font-family: 'KOROAD_M';
+    src: url(/src/font/KOROAD_Medium.otf) format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KOROAD_B';
+    src: url(/src/font/KOROAD_Bold.otf) format('opentype');
+    font-style: normal;
+}
+
+footer {
+    background: #1a1a1a;
+    color: white;
+    text-align: center;
+    padding: 60px 0 40px;
+}
+
+footer h1 {
+    font-family: 'KOROAD_B';
+    font-size: 80px;
+    margin-bottom: 34px;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.footer-icons i {
+    color: white;
+}
+
+footer .address {
+    font-family: 'KOROAD_M';
+    font-size: 14px;
+    margin: 5px 0;
+    color: #ccc;
+}
+
+footer .contact {
+    font-family: 'KOROAD_M';
+    font-size: 14px;
+    margin: 5px 0;
+    color: #ccc;
+}
+
+footer .contact span {
+    margin: 0 6px;
+    /* 좌우 6px씩 = 간격 12px */
+}
+
+footer .links {
+    font-family: 'KOROAD_M';
+    font-size: 13px;
+    margin: 20px 0 10px;
+    color: #ddd;
+    margin-bottom: 13px;
+}
+
+footer .copyright {
+    font-family: 'KOROAD_M';
+    font-size: 12px;
+    color: #999;
+}
+
+
+/* 반응형 */
+@media (max-width: 1000px) {
+    my-header h1 {
+        font-size: 50px;
+        width: auto;
+        height: auto;
+        border-bottom: #DDDDDD;
+    }
+
+    my-header header {
+        gap: 10px;
+        padding: 10px 16px;
+        position: fixed;
+    }
+
+    my-header nav > ul {
+        gap: 4px;
+        height: 20px;
+    }
+
+    my-header nav > ul > li {
+        padding: 0 4px;
+        font-size: 12px;
+        position: static;  /* relative 해제 */
+    }
+
+    nav li ul {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        display: none;
+        flex-direction: row;
+        gap: 10px;
+        padding: 8px 16px;
+        border-top: 1px solid #ddd;
+        background: white;
+    }
+
+    nav li:hover > ul {
+        display: flex;
+    }
+}

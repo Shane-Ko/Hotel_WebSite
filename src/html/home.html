@@ -1,14 +1,111 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel</title>
     <script src="/src/js/my-header.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
+    <script src="/src/js/home.js" defer></script>
+    <script src="/src/js/my-footer.js" defer></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
     <link rel="stylesheet" href="/src/css/my-header.css">
+    <link rel="stylesheet" href="/src/css/home.css">
+    <link rel="stylesheet" href="/src/css/my-footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
+
 <body>
+    <!-- 헤더 -->
     <my-header></my-header>
-    
+
+    <main>
+        <!-- 대문 사진 -->
+        <section class="hero">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="/src/image/sweet_moment.jpg" alt="Sweet Moment">
+                        <div class="slide-caption">
+                            <h2>SWEET MOMENT</h2>
+                            <a href="#">SEE MORE</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/src/image/urban_resort.jpg" alt="Urban Resort">
+                        <div class="slide-caption">
+                            <h2>URBAN RESORT</h2>
+                            <a href="#">SEE MORE</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/src/image/relax_relief.jpg" alt="Relax & Relief">
+                        <div class="slide-caption">
+                            <h2>RELAX &amp; RELIEF</h2>
+                            <a href="#">SEE MORE</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+        <!-- 방 목록 -->
+        <section class="rooms-section">
+            <h2 class="section-title">ROOMS</h2>
+            <div class="roomImage">
+                <img src="/src/image/rooms/room1.jpg" alt="room1">
+                <img src="/src/image/rooms/room2.jpg" alt="room2">
+                <img src="/src/image/rooms/room3.jpg" alt="room3">
+                <img src="/src/image/rooms/room4.jpg" alt="room4">
+                <img src="/src/image/rooms/room5.jpg" alt="room5">
+            </div>
+        </section>
+
+        <!-- 이벤트 -->
+        <section class="event-section">
+            <h2 class="section-title">EVENT</h2>
+            <div class="eventImage">
+                <figure>
+                    <img src="/src/image/event/event1.jpg" alt="event1">
+                    <figcaption>봄 특가 이벤트</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="/src/image/event/event2.jpg" alt="event2">
+                    <figcaption>5월 주요행사</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="/src/image/event/event3.jpg" alt="event3">
+                    <figcaption>새로운 객실을 기대해 주세요.</figcaption>
+                </figure>
+
+                <figure>
+                    <img src="/src/image/event/event4.jpg" alt="event4">
+                    <figcaption>스파 프로그램 할인</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 하단 BEST HOTEL -->
+        <section class="bottomTitle">
+            <i class="fa-solid fa-award"></i>
+            <h2>2024 BEST HOTEL</h2>
+            <p>
+                Can one ever remember love<br>
+                Its like trying to summon up<br>
+                the smell of rose sin a cellar.<br>
+                you might see a rose, but never the perfume.
+            </p>
+        </section>
+    </main>
+
+    <my-footer></my-footer>
 </body>
+
 </html>

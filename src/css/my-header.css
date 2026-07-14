@@ -5,6 +5,12 @@
 }
 
 @font-face {
+    font-family: 'KOROAD_L';
+    src: url(/src/font/KOROAD_Light.otf) format('opentype');
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'KOROAD_M';
     src: url(/src/font/KOROAD_Medium.otf) format('opentype');
     font-style: normal;
@@ -25,7 +31,9 @@ my-header header {
     z-index: 100;
     background-color: #FFFFFF;
     color: black;
-    padding: 15px 24px;
+    
+    padding: 15px 24px 41px;
+    /* 상 좌우 하 */
     display: flex;
     flex-direction: column;
     /* 세로로 쌓기 */
@@ -39,8 +47,10 @@ my-header h1 {
     font-size: 80px;
     width: 57px;
     height: 96px;
-    font-style: bold;
+    font-weight: bold;
     font-family: "KOROAD_M";
+    margin: 0;
+    line-height: 1;
 }
 
 /* nav 가 아니고 ul에 flex를 줘야함 */
@@ -62,6 +72,7 @@ my-header nav>ul>li {
     display: flex;
     align-items: center;
     /* justify-content: center; */
+    position: relative;
 }
 
 
@@ -72,14 +83,66 @@ nav li ul {
     padding: 0;
     position: absolute;
     top: 100%;
+    left: 0;
     width: 131px;
     background: white;
 }
 
 nav li ul li {
     padding: 8px;
+    font-family: 'KOROAD_L';
+    font-size: 16px;
+
 }
 
 nav li:hover>ul {
     display: block;
+}
+
+@media (max-width: 1000px) {
+    my-header h1 {
+        font-size: 50px;
+        width: auto;
+        height: auto;
+    }
+
+    my-header header {
+        gap: 20px;
+        padding: 10px 16px;
+    }
+
+    my-header nav>ul {
+        gap: 4px;
+    }
+
+    my-header nav>ul>li {
+        padding: 0 4px;
+        font-size: 12px;
+        position: static;
+    }
+
+    nav li ul {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        display: none;
+        flex-direction: row;
+        gap: 10px;
+        padding: 4px 16px;
+        height: 30px;
+        align-items: center;
+        border-top: 1px solid #ddd;
+        background: white;
+    }
+
+    nav li ul li {
+        font-size: 12px;
+        padding: 0;
+    }
+
+    my-header nav {
+        width: 100%;
+        padding-bottom: 8px;
+
+    }
 }
