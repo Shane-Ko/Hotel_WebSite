@@ -2,6 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-weight: normal;
+}
+
+html {
+    scrollbar-gutter: stable;
 }
 
 @font-face {
@@ -43,6 +48,11 @@ my-header header {
 
 }
 
+my-header a {
+    text-decoration: none;
+    color: inherit;
+}
+
 my-header h1 {
     font-size: 80px;
     width: 57px;
@@ -51,6 +61,12 @@ my-header h1 {
     font-family: "KOROAD_M";
     margin: 0;
     line-height: 1;
+}
+
+my-header h1 a {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 /* nav 가 아니고 ul에 flex를 줘야함 */
@@ -73,6 +89,17 @@ my-header nav>ul>li {
     align-items: center;
     /* justify-content: center; */
     position: relative;
+}
+
+my-header nav a {
+    text-decoration: none;
+    color: black;
+}
+
+nav li ul li a {
+    display: block;
+    text-decoration: none;
+    color: black;
 }
 
 

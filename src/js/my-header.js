@@ -3,7 +3,10 @@ class MyHeader extends HTMLElement {
         const header = document.createElement("header");
 
         const h1 = document.createElement("h1");
-        h1.textContent = "H";
+        const h1Link = document.createElement("a");
+        h1Link.textContent = "H";
+        h1Link.href = "/src/html/home.html";
+        h1.appendChild(h1Link);
 
         const nav = document.createElement("nav");
         const ul = document.createElement("ul");
@@ -11,42 +14,59 @@ class MyHeader extends HTMLElement {
             {
                 text: "ABOUT",
                 href: "#",
-                subs: ["호텔 소개","오시는 길"]
-
+                subs: [
+                    { text: "호텔 소개", href: "#" },
+                    { text: "오시는 길", href: "#" }
+                ]
             },
             {
                 text: "ROOMS",
                 href: "#",
-                subs: ["ROOMS1","ROOMS2","ROOMS3"]
+                subs: [
+                    { text: "ROOMS1", href: "#" },
+                    { text: "ROOMS2", href: "#" },
+                    { text: "ROOMS3", href: "#" }
+                ]
             },
             {
                 text: "RESERVATION",
                 href: "#",
-                subs: ["예약안내","실시간예약"]
+                subs: [
+                    { text: "예약안내", href: "/src/html/reservationInfo.html" },
+                    { text: "실시간예약", href: "/src/html/booking.html" }
+                ]
             },
             {
                 text: "COMMUNITY",
                 href: "#",
-                subs: ["공지사항","이벤트","FAQ"]
+                subs: [
+                    { text: "공지사항", href: "#" },
+                    { text: "이벤트", href: "#" },
+                    { text: "FAQ", href: "#" }
+                ]
             }
         ];
 
-        links.forEach(function(link) {
+        links.forEach(function (link) {
             const li = document.createElement("li");
             const a = document.createElement("a");
             a.textContent = link.text;
+            a.href = link.href;
             li.appendChild(a);
 
-            const subUl = document.createElement("ul")
-            link.subs.forEach(function(sub) {
+            const subUl = document.createElement("ul");
+            link.subs.forEach(function (sub) {
                 const subLi = document.createElement("li");
-                subLi.textContent = sub;
+                const subA = document.createElement("a");
+                subA.textContent = sub.text;
+                subA.href = sub.href;
+                subLi.appendChild(subA);
                 subUl.appendChild(subLi);
             });
-            
-            li. appendChild(subUl);
+
+            li.appendChild(subUl);
             ul.appendChild(li);
-            });
+        });
 
         header.appendChild(h1);
         header.appendChild(nav);
@@ -55,7 +75,7 @@ class MyHeader extends HTMLElement {
     }
 }
 
-customElements.define("my-header",MyHeader);
+customElements.define("my-header", MyHeader);
 
 
 

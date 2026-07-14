@@ -1,0 +1,114 @@
+<!--#### 예약 안내 페이지 #### -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약 안내</title>
+    <script src="/src/js/my-header.js" defer></script>
+    <script src="/src/js/my-footer.js" defer></script>
+
+    <link rel="stylesheet" href="/src/css/my-header.css">
+    <link rel="stylesheet" href="/src/css/my-footer.css">
+    <link rel="stylesheet" href="/src/css/reservationInfo.css">
+    
+
+</head>
+<body>
+    <my-header></my-header>
+
+    <main>
+        <!-- 상단 배너 -->
+        <section class="topTitle">
+            <div class="text">
+                <h2>RESERVATION</h2>
+                <p>예약안내</p>
+            </div>
+        </section>
+
+        <!-- 콘텐츠 영역 -->
+        <div class="page-content">
+            <h2 class="page-title">예약안내</h2>
+
+            <!-- 요금표 -->
+            <table class="rate-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">객실</th>
+                        <th rowspan="2">면적</th>
+                        <th rowspan="2">인원<br>(기준/최대)</th>
+                        <th colspan="3">비수기<br>(10.01-06.30)</th>
+                        <th colspan="3">성수기<br>(07.01-09.30)</th>
+                    </tr>
+                    <tr>
+                        <th>주중</th>
+                        <th>주말</th>
+                        <th>휴일</th>
+                        <th>주중</th>
+                        <th>주말</th>
+                        <th>휴일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>스탠다드</td><td>78㎡</td><td>2/2</td>
+                        <td>150,000</td><td>180,000</td><td>200,000</td>
+                        <td>180,000</td><td>200,000</td><td>250,000</td>
+                    </tr>
+                    <tr>
+                        <td>디럭스</td><td>94㎡</td><td>2/3</td>
+                        <td>180,000</td><td>200,000</td><td>250,000</td>
+                        <td>200,000</td><td>250,000</td><td>280,000</td>
+                    </tr>
+                    <tr>
+                        <td>프리미엄</td><td>105㎡</td><td>2/4</td>
+                        <td>200,000</td><td>250,000</td><td>280,000</td>
+                        <td>250,000</td><td>280,000</td><td>320,000</td>
+                    </tr>
+                    <tr>
+                        <td>스위트</td><td>200㎡</td><td>4/6</td>
+                        <td>250,000</td><td>280,000</td><td>320,000</td>
+                        <td>280,000</td><td>320,000</td><td>400,000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 조건 카드 3개 -->
+            <div class="condition-cards">
+                <div class="card">
+                    <h3>숙박 조건</h3>
+                    <p>디럭스 &amp; 스위트 : 성인2 + 아동2 (만12세이하까지만 해당)<br>
+                       스위트 : 성인4 + 아동2 (만12세이하까지만 해당)</p>
+                </div>
+                <div class="card">
+                    <h3>식사 제공</h3>
+                    <p>디럭스 &amp; 스위트 (성인 2명 제공), 스위트 (성인 4명 제공)<br>
+                       12세미만 아동 2명 차일드 메뉴 무료 제공<br>
+                       3박 예약시 : 조식 3회, 중식식 4회<br>
+                       4박 예약시 : 조식 4회, 중석식 6회</p>
+                </div>
+                <div class="card">
+                    <h3>세부 사항</h3>
+                    <p>키즈 카페 쿠폰 제공 (아동 2명까지 가능, 2시간 제한)<br>
+                       키즈 클럽 무료 이용 (아동 2명까지 가능, 숙박 기간동안 무제한 이용)<br>
+                       라운지 쿠폰 제공 (맥주 or 쉐이크 or 탕고빙수 중 택1)</p>
+                </div>
+            </div>
+
+            <!-- 취소 및 환불 규정 -->
+            <div class="cancel-policy">
+                <div class="policy-header">취소 및 환불 규정</div>
+                <div class="policy-body">
+                    <p>숙박 예정일 1일 전 18시까지는 위약금 없이 취소 및 변경이 가능합니다.</p>
+                    <p>숙박 예정일 1일 전 18시 이후 취소/변경 및 노쇼(No-show) 발생 시,</p>
+                    <p>- 성수기 : 최초 1일 숙박 요금의 80%가 위약금으로 부과됩니다.</p>
+                    <p>- 비수기(성수기 외 기간) : 최초 1일 숙박 요금의 10%가 위약금으로 부과됩니다.</p>
+                    <p>일부 패키지의 경우 별도의 취소규정이 적용됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <my-footer></my-footer>
+</body>
+</html>

@@ -1,0 +1,118 @@
+main {
+    padding-top: 240px;
+}
+
+/* 상단 배너 */
+.topTitle {
+    background-image: url('/src/image/reservation_info/Reservation_Info.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.topTitle h2 {
+    font-family: 'KOROAD_M';
+    font-size: 60px;
+    letter-spacing: 4px;
+}
+
+.topTitle p {
+    font-family: 'KOROAD_L';
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+/* 서브 페이지 콘텐츠 컨테이너 */
+.page-content {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 62px;
+    font-family: 'KOROAD_L';
+}
+
+.page-title {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'KOROAD_L';
+    margin: 60px 0 60px;
+}
+
+/* 요금표 */
+.rate-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #D8D8D8;
+    font-family: 'KOROAD_L';
+    font-size: 14px;
+    font-weight: Light;
+    text-align: center;
+    
+}
+
+.rate-table th,
+.rate-table td {
+    border: 1px solid #D8D8D8;
+    padding: 20px 10px;
+}
+
+.rate-table thead {
+    background-color: #D8D8D8;
+}
+
+/* 조건 카드 */
+.condition-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 59px;
+}
+
+.card {
+    background-color: #EFEFEF;
+    padding: 60px 48px;
+    text-align: center;
+    font-family: 'KOROAD_L';
+    font-size: 14px;
+    line-height: 1.8;
+    
+}
+
+.card:nth-child(2) {
+    background-color: #E5E5E5;
+}
+
+.card:nth-child(3) {
+    background-color: #D8D8D8;
+}
+
+.card h3 {
+    font-size: 25px;
+    font-family: 'KOROAD_M';
+    margin-bottom: 34px;
+}
+
+/* 취소 및 환불 규정 */
+.cancel-policy {
+    margin-top: 59px;
+    margin-bottom: 59px;
+    border: 1px solid #D8D8D8;
+}
+
+.policy-header {
+    background-color: #EFEFEF;
+    padding: 18px 20px;
+    font-family: 'KOROAD_M';
+    font-size: 14px;
+}
+
+.policy-body {
+    padding: 23px 20px;
+    font-family: 'KOROAD_L';
+    font-size: 14px;
+    line-height: 1.8;
+}
