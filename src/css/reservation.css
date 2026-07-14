@@ -1,0 +1,12 @@
+.topTitle {
+    background-image: url('/src/image/booking/booking.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}

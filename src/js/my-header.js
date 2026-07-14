@@ -33,7 +33,7 @@ class MyHeader extends HTMLElement {
                 href: "#",
                 subs: [
                     { text: "예약안내", href: "/src/html/reservationInfo.html" },
-                    { text: "실시간예약", href: "/src/html/booking.html" }
+                    { text: "실시간예약", href: "/src/html/roomSelect.html" }
                 ]
             },
             {

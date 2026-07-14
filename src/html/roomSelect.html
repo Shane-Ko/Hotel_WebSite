@@ -1,0 +1,87 @@
+<!-- ### 실시간 예약 페이지 ### -->
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 예약</title>
+    <script src="/src/js/my-header.js" defer></script>
+    <script src="/src/js/my-footer.js" defer></script>
+
+    <link rel="stylesheet" href="/src/css/my-header.css">
+    <link rel="stylesheet" href="/src/css/my-footer.css">
+    <link rel="stylesheet" href="/src/css/roomSelect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <my-header></my-header>
+
+    <main>
+        <!-- 상단 배너 -->
+        <section class="topTitle">
+            <div class="text">
+                <h2>RESERVATION</h2>
+                <p>실시간예약</p>
+            </div>
+        </section>
+
+        <!-- 콘텐츠 -->
+        <div class="page-content">
+            <h2 class="page-title">객실 선택</h2>
+
+            <!-- 객실 4개 -->
+            <div class="room-list">
+                <a href="/src/html/reservation.html?room=standard" class="room-item">
+                    <img src="/src/image/rooms/standard.jpg" alt="Standard">
+                    <div class="room-label">
+                        <span>STANDARD</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="/src/html/reservation.html?room=deluxe" class="room-item">
+                    <img src="/src/image/rooms/deluxe.jpg" alt="Deluxe">
+                    <div class="room-label">
+                        <span>DELUXE</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="/src/html/reservation.html?room=premium" class="room-item">
+                    <img src="/src/image/rooms/premium.jpg" alt="Premium">
+                    <div class="room-label">
+                        <span>PREMIUM</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <a href="/src/html/reservation.html?room=sweet" class="room-item">
+                    <img src="/src/image/rooms/sweet.jpg" alt="Sweet">
+                    <div class="room-label">
+                        <span>SWEET</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 취소 및 환불 규정 -->
+            <div class="cancel-policy">
+                <div class="policy-header">취소 및 환불 규정</div>
+                <div class="policy-body">
+                    <p>숙박 예정일 1일 전 18시까지는 위약금 없이 취소 및 변경이 가능합니다.</p>
+                    <p>숙박 예정일 1일 전 18시 이후 취소/변경 및 노쇼(No-show) 발생 시,</p>
+                    <p>- 성수기 : 최초 1일 숙박 요금의 80%가 위약금으로 부과됩니다.</p>
+                    <p>- 비수기(성수기 외 기간) : 최초 1일 숙박 요금의 10%가 위약금으로 부과됩니다.</p>
+                    <p>일부 패키지의 경우 별도의 취소규정이 적용됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 풋터 -->
+    <my-footer></my-footer>
+</body>
+
+</html>
