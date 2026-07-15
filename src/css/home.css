@@ -95,22 +95,80 @@
     display: flex;
     gap: 40px;
     padding-left: 40px;
-    overflow: hidden;
+    padding-right: 40px;
+    /* ← 좌우 대칭 여백 추가 */
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+
+/* Chrome/Safari 스크롤바 숨김 */
+.roomImage::-webkit-scrollbar {
+    display: none;
+}
+
 
 .roomImage img {
     width: 400px;
     height: 300px;
     object-fit: cover;
     flex-shrink: 0;
+    cursor: pointer;
+    /* 클릭 가능 표시 */
+    transition: transform 0.3s;
 }
 
+.roomImage img:hover {
+    transform: scale(1.02);
+}
+
+.image-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.image-popup-overlay.show {
+    display: flex;
+}
+
+.image-popup-overlay img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.image-popup-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* event 사진 */
 /* event 사진 */
 .eventImage {
     display: flex;
     gap: 40px;
     padding-left: 40px;
-    overflow: hidden;
+    padding-right: 40px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.eventImage::-webkit-scrollbar {
+    display: none;
 }
 
 .eventImage img {
@@ -155,4 +213,56 @@
 .bottomTitle p {
     font-size: 20px;
     font-family: 'KOROAD_L';
+}
+
+/* ============ 반응형 레이아웃 (모바일 1000px 이하) ============ */
+@media (max-width: 1000px) {
+
+    /* 1. 메인 슬라이드 (여백 및 높이 축소) */
+    .swiper {
+        margin-top: 130px;
+        /* 작아진 모바일 헤더 높이에 맞춰 상단 여백 줄임 */
+        height: 500px;
+        /* 높이를 줄여서 이미지가 좌우로 너무 잘리지 않게 조정 */
+    }
+
+    /* 2. 메인 슬라이드 텍스트 및 버튼 크기 조정 */
+    .slide-caption h2 {
+        font-size: 36px;
+        /* 60px -> 36px 축소 */
+        letter-spacing: 2px;
+    }
+
+    .slide-caption a {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    /* 3. 하단 BEST HOTEL 섹션 크기 조정 */
+    .bottomTitle {
+        height: 280px;
+        margin-top: 40px;
+    }
+
+    .fa-award {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .bottomTitle h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .bottomTitle p {
+        font-size: 16px;
+    }
+
+    /* 4. 중간 갤러리 (room, event) 이미지 유연하게 변경 */
+    .roomImage img,
+    .eventImage img {
+        width: 300px;
+        /* 400px -> 300px 축소 */
+        height: 225px;
+    }
 }

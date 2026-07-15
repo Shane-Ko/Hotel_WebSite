@@ -152,6 +152,37 @@ function renderRoomInfo() {
         });
         els.thumbList.appendChild(li);
     });
+
+    const maxExtra = state.room.capacity - 2;
+    els.extraGuest.innerHTML = '';
+
+    if (maxExtra <= 0) {
+        // 스탠다드: 추가 불가
+        const opt = document.createElement('option');
+        opt.value = '0';
+        opt.textContent = '추가 불가';
+        els.extraGuest.appendChild(opt);
+        els.extraGuest.disabled = true;
+    } else {
+        els.extraGuest.disabled = false;
+        // 없음 옵션
+        const noneOpt = document.createElement('option');
+        noneOpt.value = '0';
+        noneOpt.textContent = '없음';
+        els.extraGuest.appendChild(noneOpt);
+
+        // 1명 ~ maxExtra명
+        for (let i = 1; i <= maxExtra; i++) {
+            const opt = document.createElement('option');
+            opt.value = String(i);
+            opt.textContent = `${i}명`;
+            els.extraGuest.appendChild(opt);
+        }
+    }
+
+    // 상태 리셋
+    state.extraGuest = 0;
+    els.extraGuest.value = '0';
 }
 
 function renderCalendar() {
@@ -215,8 +246,16 @@ function makeDayCell(dayNum, isOtherMonth, dateObj) {
 
     if (state.startDate && sameDay(dateObj, state.startDate)) {
         cell.classList.add('selected');
+        const sub = document.createElement('span');
+        sub.className = 'sub';
+        sub.textContent = '입실';
+        cell.appendChild(sub);
     } else if (state.endDate && sameDay(dateObj, state.endDate)) {
         cell.classList.add('selected');
+        const sub = document.createElement('span');
+        sub.className = 'sub';
+        sub.textContent = '퇴실';
+        cell.appendChild(sub);
     } else if (state.startDate && state.endDate &&
         dateObj > state.startDate && dateObj < state.endDate) {
         cell.classList.add('in-range');
@@ -271,6 +310,14 @@ function moveMonth(delta) {
     let m = state.viewMonth + delta;
     if (m < 0) { m = 11; y--; }
     if (m > 11) { m = 0; y++; }
+
+    // 오늘의 달보다 이전으로 가려는 경우만 차단
+    const todayY = state.today.getFullYear();
+    const todayM = state.today.getMonth();
+    if (y < todayY || (y === todayY && m < todayM)) {
+        return;
+    }
+
     state.viewYear = y;
     state.viewMonth = m;
     renderCalendar();
@@ -432,15 +479,19 @@ function getSeasonId(dateObj) {
     if (month >= 7 && month <= 9) return 2;
     return 1;
 }
-
+//################################################################
 // 체크인, 체크아웃 날짜 모두 예약완료로 변경
 function isReserved(dateObj) {
     return state.reservations.some(r => {
+        // 1. 시간통일
+        // 2. 년월일 뽑기
         const ci = new Date(r.check_in_date);
         const co = new Date(r.check_out_date);
+        if (dateObj >= ci && dateObj <= co) console.log(ci.toISOString(), dateObj.toISOString(), dateObj.toLocaleString(), co.toISOString())
         return dateObj >= ci && dateObj <= co;
     });
 }
+//################################################################
 
 function hasReservedBetween(start, end) {
     const cur = new Date(start);

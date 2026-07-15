@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000'; // 최상단에 추가
+const API_BASE = 'http://localhost:3000';
 
 const state = {
     today: new Date(),
@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     els.fmPhoneError = document.getElementById('fmPhoneError');
 
     els.calTitle = document.getElementById('calTitle');
-    els.calPrev = document.getElementById('calPrev');
-    els.calNext = document.getElementById('calNext');
     els.calGrid = document.getElementById('calendarGrid');
 
     els.btnSubmit = document.getElementById('btnSubmit');
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     els.modal = document.getElementById('successModal');
     els.modalConfirm = document.getElementById('modalConfirm');
 
-    // 1. 이전 페이지에서 저장한 정보 불러오기
     const savedStart = sessionStorage.getItem('res_startDate');
     const savedEnd = sessionStorage.getItem('res_endDate');
 
@@ -44,28 +41,25 @@ document.addEventListener('DOMContentLoaded', () => {
         state.extraGuest = sessionStorage.getItem('res_extraGuest') || '0';
         state.totalPrice = parseInt(sessionStorage.getItem('res_totalPrice')) || 0;
 
-        // 달력을 체크인 날짜 기준으로 보여주기
         state.viewYear = state.startDate.getFullYear();
         state.viewMonth = state.startDate.getMonth();
     } else {
-        // 직접 주소로 치고 들어오는 등 정보가 없으면 뒤로가기
         alert('예약 정보가 없습니다. 이전 페이지로 돌아갑니다.');
         history.back();
         return;
     }
 
-    // 2. 입력 폼에 불러온 정보 세팅
     els.fmRoom.value = state.roomName.toUpperCase();
     els.fmGuests.value = state.extraGuest + '명';
     els.fmTotal.textContent = state.totalPrice.toLocaleString();
 
-    // 이벤트
-    els.calPrev.addEventListener('click', () => moveMonth(-1));
-    els.calNext.addEventListener('click', () => moveMonth(1));
-    els.btnCancel.addEventListener('click', () => history.back());
+    els.btnCancel.addEventListener('click', (e) => { e.preventDefault(); history.back(); });
     els.btnSubmit.addEventListener('click', validateAndSubmit);
-    els.modalConfirm.addEventListener('click', () => {
-        // 확인 누르면 메인으로 이동 후 세션 비우기
+
+    // ★ 확인 버튼: 모달 닫고 → 세션 비우고 → 홈으로 이동
+    els.modalConfirm.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.modal.classList.remove('show');
         sessionStorage.clear();
         window.location.href = '/src/html/home.html';
     });
@@ -80,7 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();
 });
 
-async function validateAndSubmit() {
+async function validateAndSubmit(e) {
+    if (e) e.preventDefault();
+
     let isValid = true;
     const customerName = els.fmName.value.trim();
     const phoneNumber = els.fmPhone.value.trim();
@@ -96,12 +92,10 @@ async function validateAndSubmit() {
         isValid = false;
     }
 
-    // 유효성 검사 실패 시 종료
     if (!isValid) return;
 
-    // DB에 보낼 데이터 구성
     const body = {
-        room_id: parseInt(sessionStorage.getItem('res_roomId')), // 이전 페이지에서 넘겨받은 방 ID
+        room_id: parseInt(sessionStorage.getItem('res_roomId')),
         check_in_date: ymd(state.startDate),
         check_out_date: ymd(state.endDate),
         total_price: state.totalPrice,
@@ -111,7 +105,6 @@ async function validateAndSubmit() {
     };
 
     try {
-        // json-server로 POST 요청 (db.json에 저장)
         const res = await fetch(`${API_BASE}/reservation`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -120,7 +113,7 @@ async function validateAndSubmit() {
 
         if (!res.ok) throw new Error('예약 실패');
 
-        // DB 저장 성공 시 예약 완료 팝업 띄우기
+        // 예약 성공 → 모달 표시 (사용자가 확인 누를 때까지 유지)
         els.modal.classList.add('show');
     } catch (err) {
         console.error(err);
@@ -169,7 +162,6 @@ function makeDayCell(dayNum, isOtherMonth, dateObj) {
     if (dateObj.getDay() === 0) cell.classList.add('sun');
     if (isBeforeToday(dateObj)) cell.classList.add('disabled');
 
-    // 불러온 날짜 고정 표시 (클릭 이벤트 없음)
     if (state.startDate && sameDay(dateObj, state.startDate)) {
         cell.classList.add('selected');
         const sub = document.createElement('span');
@@ -191,15 +183,6 @@ function makeDayCell(dayNum, isOtherMonth, dateObj) {
     return cell;
 }
 
-function moveMonth(delta) {
-    let y = state.viewYear;
-    let m = state.viewMonth + delta;
-    if (m < 0) { m = 11; y--; }
-    if (m > 11) { m = 0; y++; }
-    state.viewYear = y;
-    state.viewMonth = m;
-    renderCalendar();
-}
 
 function isBeforeToday(d) {
     const today = new Date(state.today.getFullYear(), state.today.getMonth(), state.today.getDate());
@@ -210,7 +193,6 @@ function sameDay(a, b) {
     return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
 
-// 날짜 객체를 YYYY-MM-DD 형식으로 변환하는 함수
 function ymd(d) {
     const yyyy = d.getFullYear();
     const mm = String(d.getMonth() + 1).padStart(2, '0');

@@ -14,7 +14,6 @@
 <body>
   <my-header></my-header>
 
-  <!-- 상단 히어로 배너 -->
   <section class="topTitle">
     <div class="text">
       <h2>RESERVATION</h2>
@@ -22,13 +21,11 @@
     </div>
   </section>
 
-  <!-- 메인 콘텐츠 -->
   <main class="insert-info-main">
     <h3 class="page-title">예약 등록</h3>
 
     <div class="content-wrapper">
       
-      <!-- LEFT: 예약 정보 입력 폼 -->
       <div class="form-section">
         <div class="form-row">
           <label>ROOM</label>
@@ -59,35 +56,29 @@
         </div>
       </div>
 
-      <!-- RIGHT: 캘린더 영역 -->
       <div class="calendar-section">
         <div class="calendar-header">
-          <button id="calPrev">&lt;</button>
           <span id="calTitle">2025년 05월</span>
-          <button id="calNext">&gt;</button>
         </div>
         <div class="calendar-weekdays">
           <span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
         </div>
         <div class="calendar-grid" id="calendarGrid">
-          <!-- JS에서 날짜 동적 생성 -->
         </div>
       </div>
 
     </div>
 
-    <!-- 하단 버튼 영역 -->
     <div class="button-section">
-      <button id="btnCancel" class="btn-cancel">취소</button>
-      <button id="btnSubmit" class="btn-submit">예약하기</button>
+      <button type="button" id="btnCancel" class="btn-cancel">취소</button>
+      <button type="button" id="btnSubmit" class="btn-submit">예약하기</button>
     </div>
   </main>
 
-  <!-- 세번째 사진: 예약 완료 모달 -->
   <div class="modal-overlay" id="successModal">
     <div class="modal-content">
       <p>예약이 완료되었습니다.</p>
-      <button id="modalConfirm">확인</button>
+      <button type="button" id="modalConfirm">확인</button>
     </div>
   </div>
 
