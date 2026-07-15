@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>예약 등록 - RESERVATION</title>
+  <link rel="stylesheet" href="/src/css/my-header.css" />
+  <link rel="stylesheet" href="/src/css/my-footer.css" />
+  <link rel="stylesheet" href="/src/css/insertInfo.css" />
+  <script src="/src/js/my-header.js" defer></script>
+  <script src="/src/js/my-footer.js" defer></script>
+  <script src="/src/js/insertInfo.js" defer></script>
+</head>
+<body>
+  <my-header></my-header>
+
+  <!-- 상단 히어로 배너 -->
+  <section class="topTitle">
+    <div class="text">
+      <h2>RESERVATION</h2>
+      <p>실시간예약</p>
+    </div>
+  </section>
+
+  <!-- 메인 콘텐츠 -->
+  <main class="insert-info-main">
+    <h3 class="page-title">예약 등록</h3>
+
+    <div class="content-wrapper">
+      
+      <!-- LEFT: 예약 정보 입력 폼 -->
+      <div class="form-section">
+        <div class="form-row">
+          <label>ROOM</label>
+          <input type="text" id="fmRoom" value="STANDARD" disabled />
+        </div>
+        <div class="form-row">
+          <label>추가인원</label>
+          <input type="text" id="fmGuests" value="0명" disabled />
+        </div>
+        <div class="form-row">
+          <label>예약명</label>
+          <div class="input-wrap">
+            <input type="text" id="fmName" placeholder="예약명을 입력해 주세요." />
+            <span class="error-msg" id="fmNameError">필수 입력 값입니다.</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <label>전화번호</label>
+          <div class="input-wrap">
+            <input type="text" id="fmPhone" placeholder="-를 제외하고 입력해 주세요." />
+            <span class="error-msg" id="fmPhoneError">필수 입력 값입니다.</span>
+          </div>
+        </div>
+        
+        <div class="form-row total-row">
+          <label>총 합계</label>
+          <div class="total-price"><span id="fmTotal">150,000</span> 원</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: 캘린더 영역 -->
+      <div class="calendar-section">
+        <div class="calendar-header">
+          <button id="calPrev">&lt;</button>
+          <span id="calTitle">2025년 05월</span>
+          <button id="calNext">&gt;</button>
+        </div>
+        <div class="calendar-weekdays">
+          <span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid">
+          <!-- JS에서 날짜 동적 생성 -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 하단 버튼 영역 -->
+    <div class="button-section">
+      <button id="btnCancel" class="btn-cancel">취소</button>
+      <button id="btnSubmit" class="btn-submit">예약하기</button>
+    </div>
+  </main>
+
+  <!-- 세번째 사진: 예약 완료 모달 -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <p>예약이 완료되었습니다.</p>
+      <button id="modalConfirm">확인</button>
+    </div>
+  </div>
+
+  <my-footer></my-footer>
+</body>
+</html>

@@ -1,23 +1,39 @@
 /**
  * reservation.js
+ * ------------------------------------------------------------
+ * URL 예:
+ *   /src/html/reservation.html?room=standard
+ *   /src/html/reservation.html?room=deluxe
+ *   /src/html/reservation.html?room=premium
+ *   /src/html/reservation.html?room=sweet
+ *
+ * 필요한 엔드포인트:
+ *   GET  http://localhost:3000/rooms
+ *   GET  http://localhost:3000/price
+ *   GET  http://localhost:3000/holiday
+ *   GET  http://localhost:3000/season
+ *   GET  http://localhost:3000/reservation
+ *   POST http://localhost:3000/reservation
+ * ------------------------------------------------------------
  */
 
+// 편의를 위해서 json-server 주소 변수로 빼두기
 const API_BASE = 'http://localhost:3000';
 const IMG_BASE = '/src/image/rooms/';
 
 // ============ 전역 상태 ============
 const state = {
-    room: null,
-    prices: [],
-    seasons: [],
-    holidays: [],
-    reservations: [],
-    today: new Date(),
-    viewYear: 0,
-    viewMonth: 0,
-    startDate: null,
-    endDate: null,
-    extraGuest: 0,
+    room: null,          // 현재 방 객체 (rooms에서 찾은 것)
+    prices: [],          // 이 방의 price 배열 (비수기/성수기)
+    seasons: [],         // season 전체
+    holidays: [],        // holiday 전체
+    reservations: [],    // 이 방의 예약 목록 (예약완료 표시용)
+    today: new Date(),   // 오늘
+    viewYear: 0,         // 현재 캘린더가 보여주는 년
+    viewMonth: 0,        // 현재 캘린더가 보여주는 월 (0-based)
+    startDate: null,     // 선택 시작일 (Date | null)
+    endDate: null,       // 선택 종료일 (Date | null)
+    extraGuest: 0,       // 추가 인원 (0 ~ 2)
 };
 
 // ============ DOM refs ============
@@ -42,23 +58,6 @@ async function init() {
     els.btnCancel = $('#btnCancel');
     els.btnReserve = $('#btnReserve');
 
-    // 모달 DOM
-    els.modal = $('#modal');
-    els.modalMessage = $('#modalMessage');
-    els.modalConfirm = $('#modalConfirm');
-
-    // 예약 폼 모달 DOM
-    els.formModal = $('#formModal');
-    els.fmRoom = $('#fmRoom');
-    els.fmGuests = $('#fmGuests');
-    els.fmName = $('#fmName');
-    els.fmPhone = $('#fmPhone');
-    els.fmTotal = $('#fmTotal');
-    els.fmCancel = $('#fmCancel');
-    els.fmSubmit = $('#fmSubmit');
-    els.fmNameError = $('#fmNameError');
-    els.fmPhoneError = $('#fmPhoneError');
-
     // 오늘 기준으로 캘린더 초기 위치 세팅
     const t = state.today;
     state.viewYear = t.getFullYear();
@@ -69,39 +68,34 @@ async function init() {
     els.calNext.addEventListener('click', () => moveMonth(1));
     els.extraGuest.addEventListener('change', onExtraGuestChange);
     els.btnCancel.addEventListener('click', onCancel);
-    els.btnReserve.addEventListener('click', () => {
-        if (!state.startDate || !state.endDate) {
-            showModal('체크인/체크아웃 날짜를 선택해주세요.');
-            return;
-        }
-
-        // 다음 페이지로 데이터를 넘기기 위해 sessionStorage에 정보 저장
-        sessionStorage.setItem('res_roomId', state.room.id); // <--- 이 줄을 추가해 주세요!
-        sessionStorage.setItem('res_startDate', state.startDate);
-        sessionStorage.setItem('res_endDate', state.endDate);
-        sessionStorage.setItem('res_roomName', state.room.name_eng);
-        sessionStorage.setItem('res_extraGuest', state.extraGuest);
-        sessionStorage.setItem('res_totalPrice', calcTotal());
-
-        // insertInfo.html 페이지로 이동
-        location.href = '/src/html/insertInfo.html';
-    });
-    els.modalConfirm.addEventListener('click', hideModal);
-
-    // 폼 모달 이벤트 바인딩
-    els.fmCancel.addEventListener('click', closeFormModal);
-    els.fmSubmit.addEventListener('click', submitReservation);
+    els.btnReserve.addEventListener('click', onReserve);
 
     // ============ 데이터 로딩 ============
+    // URL query string에서 room 이름 가져오기
     const param = new URLSearchParams(location.search);
     const roomName = param.get('room');
 
+    // 잘못된 경로 접근 시, 방선택 페이지로 이동
     if (!roomName) {
         alert('잘못된 접근');
         location.href = '/src/html/roomSelect.html';
         return;
     }
 
+    // # 순차 실행
+    // const roomsResponse = await fetch(`${API_BASE}/rooms`);
+    // const rooms = await response.json();
+
+    // const priceResponse = await fetch(`${API_BASE}/price`);
+    // const price = await response.json();
+
+    // const seasonResponse = await fetch(`${API_BASE}/season`);
+    // const season = await response.json();
+
+    // const holidayResponse = await fetch(`${API_BASE}/holiday`);
+    // const holiday = await response.json();
+
+    // 병렬 실행 (순차 실행보다 속도 빠름)
     const [rooms, prices, seasons, holidays, reservations] = await Promise.all([
         fetch(`${API_BASE}/rooms`).then(r => r.json()),
         fetch(`${API_BASE}/price`).then(r => r.json()),
@@ -110,6 +104,7 @@ async function init() {
         fetch(`${API_BASE}/reservation`).then(r => r.json()),
     ]);
 
+    // 이 방 찾기
     const room = rooms.find(r => r.name_eng === roomName);
     if (!room) {
         alert('존재하지 않는 방입니다.');
@@ -117,25 +112,32 @@ async function init() {
         return;
     }
 
+    // state에 저장
     state.room = room;
     state.prices = prices.filter(p => p.room_id === room.id);
     state.seasons = seasons;
     state.holidays = holidays;
     state.reservations = reservations.filter(r => r.room_id === room.id);
 
+    // 렌더링
     renderRoomInfo();
     renderCalendar();
     updateTotal();
 }
 
 // ============ 렌더링 ============
+
 function renderRoomInfo() {
+    // 방 이름, 설명 반영
     els.roomName.textContent = state.room.name_eng.toUpperCase();
     els.roomDesc.textContent = state.room.desc;
     els.roomDescEng.textContent = state.room.desc_eng;
-    els.mainImage.src = IMG_BASE + state.room.images[0];
-    els.thumbList.innerHTML = '';
 
+    // 메인 이미지 (첫 번째)
+    els.mainImage.src = IMG_BASE + state.room.images[0];
+
+    // 썸네일 리스트
+    els.thumbList.innerHTML = '';
     state.room.images.forEach((imgName, idx) => {
         const li = document.createElement('li');
         const img = document.createElement('img');
@@ -143,13 +145,16 @@ function renderRoomInfo() {
         img.alt = `${state.room.name_eng} ${idx + 1}`;
         li.appendChild(img);
 
+        // 첫 번째는 active
         if (idx === 0) li.classList.add('active');
 
+        // 클릭 시 메인 이미지 교체
         li.addEventListener('click', () => {
             els.mainImage.src = IMG_BASE + imgName;
             els.thumbList.querySelectorAll('li').forEach(x => x.classList.remove('active'));
             li.classList.add('active');
         });
+
         els.thumbList.appendChild(li);
     });
 }
@@ -159,22 +164,28 @@ function renderCalendar() {
     const m = state.viewMonth;
     els.calTitle.textContent = `${y}년 ${String(m + 1).padStart(2, '0')}월`;
 
+    // 이 달의 1일 요일 (0=일)
     const firstDow = new Date(y, m, 1).getDay();
+    // 이 달 마지막 날짜
     const lastDate = new Date(y, m + 1, 0).getDate();
+    // 저번 달 마지막 날짜 (앞쪽 채우기용)
     const prevLastDate = new Date(y, m, 0).getDate();
 
     els.calGrid.innerHTML = '';
 
+    // 앞쪽 - 저번달 날짜 (회색)
     for (let i = firstDow - 1; i >= 0; i--) {
         const d = prevLastDate - i;
         els.calGrid.appendChild(makeDayCell(d, true, null));
     }
 
+    // 이번달
     for (let d = 1; d <= lastDate; d++) {
         const dateObj = new Date(y, m, d);
         els.calGrid.appendChild(makeDayCell(d, false, dateObj));
     }
 
+    // 뒤쪽 - 다음달 (7칸 배수 맞추기)
     const total = firstDow + lastDate;
     const tail = (7 - (total % 7)) % 7;
     for (let d = 1; d <= tail; d++) {
@@ -190,20 +201,26 @@ function makeDayCell(dayNum, isOtherMonth, dateObj) {
     numSpan.textContent = dayNum;
     cell.appendChild(numSpan);
 
+    // 다른 달 or 오늘 이전 → disabled
     if (isOtherMonth) {
         cell.classList.add('disabled');
         return cell;
     }
 
+    // 요일별 색
     const dow = dateObj.getDay();
     if (dow === 0) cell.classList.add('sun');
+
+    // 공휴일 색
     if (isHoliday(dateObj)) cell.classList.add('holiday');
 
+    // 오늘 이전 disabled
     if (isBeforeToday(dateObj)) {
         cell.classList.add('disabled');
         return cell;
     }
 
+    // 예약완료 표시
     if (isReserved(dateObj)) {
         const sub = document.createElement('span');
         sub.className = 'sub';
@@ -213,6 +230,7 @@ function makeDayCell(dayNum, isOtherMonth, dateObj) {
         return cell;
     }
 
+    // 선택된 범위 표시
     if (state.startDate && sameDay(dateObj, state.startDate)) {
         cell.classList.add('selected');
     } else if (state.endDate && sameDay(dateObj, state.endDate)) {
@@ -222,30 +240,31 @@ function makeDayCell(dayNum, isOtherMonth, dateObj) {
         cell.classList.add('in-range');
     }
 
+    // 클릭 이벤트
     cell.addEventListener('click', () => onDayClick(dateObj));
+
     return cell;
 }
 
 // ============ 이벤트 핸들러 ============
+
 function onDayClick(dateObj) {
     if (!state.startDate) {
+        // 시작일도 없으면 → 시작일로
         state.startDate = dateObj;
         state.endDate = null;
     } else if (!state.endDate) {
         if (dateObj < state.startDate) {
+            // 시작일보다 이전 클릭 → 시작일 갈아끼우기
             state.startDate = dateObj;
         } else if (sameDay(dateObj, state.startDate)) {
+            // 같은 날 다시 클릭 → 취소
             state.startDate = null;
         } else {
-            // 6일(5박) 이상 예약 제한 안내
-            const nights = daysBetween(state.startDate, dateObj);
-            if (nights >= 6) {
-                showModal('최대 5박까지만 예약 가능합니다.');
-                return;
-            }
-
+            // 시작일 이후 클릭 → 종료일로
+            // 단, 그 사이에 예약완료가 끼어있으면 안 됨
             if (hasReservedBetween(state.startDate, dateObj)) {
-                showModal('선택하신 기간 사이에 예약된 날짜가 있습니다.');
+                alert('선택하신 기간 사이에 예약된 날짜가 있습니다.');
                 state.startDate = null;
                 state.endDate = null;
             } else {
@@ -253,6 +272,7 @@ function onDayClick(dateObj) {
             }
         }
     } else {
+        // 둘 다 있으면 → 리셋 후 시작일로
         state.startDate = dateObj;
         state.endDate = null;
     }
@@ -285,54 +305,23 @@ function onCancel() {
     updateTotal();
 }
 
-// ============ 폼 모달 기능 ============
-function openFormModal() {
+async function onReserve() {
+    // 유효성 검사
     if (!state.startDate || !state.endDate) {
-        showModal('체크인/체크아웃 날짜를 선택해주세요.');
+        alert('체크인/체크아웃 날짜를 선택해주세요.');
         return;
     }
 
-    els.fmRoom.value = state.room.name_eng.toUpperCase();
-    els.fmGuests.value = state.extraGuest + '명';
-    els.fmTotal.textContent = calcTotal().toLocaleString();
+    // 사용자 정보 입력 (임시로 prompt, 나중에 모달로)
+    const customer_name = prompt('예약자 이름을 입력해주세요.');
+    if (!customer_name) return;
+    const phone_number = prompt('연락처를 입력해주세요. (예: 01012345678)');
+    if (!phone_number) return;
 
-    // 폼 초기화
-    els.fmName.value = '';
-    els.fmPhone.value = '';
-    els.fmNameError.style.display = 'none';
-    els.fmPhoneError.style.display = 'none';
-
-    els.formModal.classList.add('show');
-}
-
-function closeFormModal() {
-    els.formModal.classList.remove('show');
-}
-
-async function submitReservation() {
-    const customer_name = els.fmName.value.trim();
-    const phone_number = els.fmPhone.value.trim();
-
-    // 유효성 검사
-    let hasError = false;
-    if (!customer_name) {
-        els.fmNameError.style.display = 'block';
-        hasError = true;
-    } else {
-        els.fmNameError.style.display = 'none';
-    }
-
-    if (!phone_number) {
-        els.fmPhoneError.style.display = 'block';
-        hasError = true;
-    } else {
-        els.fmPhoneError.style.display = 'none';
-    }
-
-    if (hasError) return;
-
+    // 총 가격 계산
     const total_price = calcTotal();
 
+    // 요청 body 만들기
     const body = {
         room_id: state.room.id,
         check_in_date: ymd(state.startDate),
@@ -352,11 +341,12 @@ async function submitReservation() {
         if (!res.ok) throw new Error('예약 실패');
         const created = await res.json();
 
-        closeFormModal();
-        showModal('예약이 완료되었습니다.');
+        alert(`예약이 완료되었습니다.\n예약번호: ${created.id}`);
 
+        // state에 새 예약 반영 (다시 fetch 하지 않고)
         state.reservations.push(created);
 
+        // 리셋
         state.startDate = null;
         state.endDate = null;
         state.extraGuest = 0;
@@ -365,28 +355,37 @@ async function submitReservation() {
         updateTotal();
     } catch (err) {
         console.error(err);
-        showModal('예약 처리 중 오류가 발생했습니다.');
+        alert('예약 처리 중 오류가 발생했습니다.');
     }
 }
 
 // ============ 가격 계산 ============
+
 function updateTotal() {
     const total = calcTotal();
     els.totalPrice.textContent = total.toLocaleString();
 }
 
+// 순수 계산 함수 (표시와 분리)
 function calcTotal() {
     if (!state.startDate || !state.endDate) return 0;
+
     let total = 0;
+
+    // startDate ~ endDate 하루 전까지 (체크아웃 날짜는 숙박 X)
     const cur = new Date(state.startDate);
     while (cur < state.endDate) {
         total += getDayPrice(cur);
         cur.setDate(cur.getDate() + 1);
     }
+
+    // 추가 인원 반영 (한 명당 20%)
     total = total * (1 + 0.2 * state.extraGuest);
+
     return Math.round(total);
 }
 
+// 특정 날짜의 하루치 가격
 function getDayPrice(dateObj) {
     const seasonId = getSeasonId(dateObj);
     const priceRow = state.prices.find(p => p.season_id === seasonId);
@@ -398,6 +397,7 @@ function getDayPrice(dateObj) {
 }
 
 // ============ 유틸 ============
+
 function isBeforeToday(d) {
     const today = new Date(state.today.getFullYear(), state.today.getMonth(), state.today.getDate());
     const target = new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -424,24 +424,27 @@ function isHoliday(dateObj) {
 
 function isWeekend(dateObj) {
     const dow = dateObj.getDay();
-    return dow === 0 || dow === 6;
+    return dow === 0 || dow === 6; // 일=0, 토=6
 }
 
+// 성수기(2): 7-9월, 나머지는 비수기(1)
+// db.json의 season 데이터가 연도 걸쳐있어서 month로 판정하는게 간단함
 function getSeasonId(dateObj) {
-    const month = dateObj.getMonth() + 1;
-    if (month >= 7 && month <= 9) return 2;
-    return 1;
+    const month = dateObj.getMonth() + 1; // 1-12
+    if (month >= 7 && month <= 9) return 2; // 성수기
+    return 1; // 비수기
 }
 
-// 체크인, 체크아웃 날짜 모두 예약완료로 변경
+// 예약완료 날짜인지 (체크인 <= date < 체크아웃)
 function isReserved(dateObj) {
     return state.reservations.some(r => {
         const ci = new Date(r.check_in_date);
         const co = new Date(r.check_out_date);
-        return dateObj >= ci && dateObj <= co;
+        return dateObj >= ci && dateObj < co;
     });
 }
 
+// start ~ end 사이 (양 끝 포함)에 예약완료가 있는지
 function hasReservedBetween(start, end) {
     const cur = new Date(start);
     while (cur <= end) {
@@ -449,20 +452,4 @@ function hasReservedBetween(start, end) {
         cur.setDate(cur.getDate() + 1);
     }
     return false;
-}
-
-function daysBetween(a, b) {
-    const ms = new Date(b.getFullYear(), b.getMonth(), b.getDate())
-        - new Date(a.getFullYear(), a.getMonth(), a.getDate());
-    return Math.round(ms / (1000 * 60 * 60 * 24));
-}
-
-// ============ 모달 유틸 ============
-function showModal(message) {
-    els.modalMessage.textContent = message;
-    els.modal.classList.add('show');
-}
-
-function hideModal() {
-    els.modal.classList.remove('show');
 }

@@ -103,53 +103,6 @@
     </div>
   </main>
 
-  <!-- 공용 안내 모달 -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal-box">
-      <p class="modal-message" id="modalMessage"></p>
-      <button class="modal-confirm" id="modalConfirm">확인</button>
-    </div>
-  </div>
-
-  <!-- 예약 폼 모달 -->
-  <div class="form-modal-overlay" id="formModal">
-    <div class="form-modal-box">
-      <h3 class="form-modal-title">예약 등록</h3>
-
-      <div class="form-row">
-        <label>ROOM</label>
-        <input type="text" id="fmRoom" disabled />
-      </div>
-      <div class="form-row">
-        <label>추가인원</label>
-        <input type="text" id="fmGuests" disabled />
-      </div>
-      <div class="form-row">
-        <label>예약명</label>
-        <div class="form-input-wrap">
-          <input type="text" id="fmName" placeholder="예약명을 입력해 주세요." />
-          <span class="form-error" id="fmNameError">필수 입력 값입니다.</span>
-        </div>
-      </div>
-      <div class="form-row">
-        <label>전화번호</label>
-        <div class="form-input-wrap">
-          <input type="text" id="fmPhone" placeholder="-를 제외하고 입력해 주세요." />
-          <span class="form-error" id="fmPhoneError">필수 입력 값입니다.</span>
-        </div>
-      </div>
-      <div class="form-row total">
-        <label>총 합계</label>
-        <span class="form-total"><strong id="fmTotal">0</strong> 원</span>
-      </div>
-
-      <div class="form-btn-row">
-        <button class="fm-cancel" id="fmCancel">취소</button>
-        <button class="fm-submit" id="fmSubmit">예약하기</button>
-      </div>
-    </div>
-  </div>
-
   <my-footer></my-footer>
 </body>
 
