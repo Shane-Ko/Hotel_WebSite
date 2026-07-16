@@ -145,7 +145,7 @@ function renderCalendar() {
         els.calGrid.appendChild(makeDayCell(d, false, dateObj));
     }
     const total = firstDow + lastDate;
-    const tail = (7 - (total % 7)) % 7;
+    const tail = 42 - total;
     for (let d = 1; d <= tail; d++) {
         els.calGrid.appendChild(makeDayCell(d, true, null));
     }
