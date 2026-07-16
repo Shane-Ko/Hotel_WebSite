@@ -63,9 +63,7 @@ body {
 .form-row>input[type="text"],
 .form-row>.input-wrap {
   flex: none;
-  /* 세로 축으로 찌그러지는 현상을 방지합니다. */
   width: 100%;
-  /* 대신 가로 너비는 100%로 꽉 채웁니다. */
   box-sizing: border-box;
 }
 
@@ -303,57 +301,71 @@ body {
   cursor: pointer;
 }
 
+/* 기본(데스크톱): mobile-only 요소 숨김 */
+.mobile-only {
+  display: none;
+}
+
 /* ============ 반응형 레이아웃 (모바일 1000px 이하) ============ */
 @media (max-width: 1000px) {
 
-  /* 1. 상단 공백 해결 및 배너 축소 (사진 붕 뜸 현상 해결) */
+  /* 1. 상단 공백 및 배너 */
   body {
-    padding-top: 130px;
-    /* 줄어든 모바일 헤더 크기에 맞춰 밀착 */
+    padding-top: 110px;
   }
 
   .topTitle {
-    height: 250px;
+    height: 110px;
   }
 
   .topTitle h2 {
-    font-size: 36px;
+    font-size: 24px;
     letter-spacing: 2px;
   }
 
   .topTitle p {
-    font-size: 16px;
+    font-size: 13px;
+    margin-top: 4px;
   }
 
-  /* 2. 메인 타이틀 및 공백 조절 */
+  /* 2. 메인 타이틀 */
   .insert-info-main {
     padding: 0 0 40px 0;
   }
 
   .page-title {
-    font-size: 24px;
-    margin-top: 35px;
-    margin-bottom: 25px;
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 20px;
   }
 
-  /* 3. 좌(폼) / 우(달력) -> 세로 1열로 배치 */
+  /* 3. content-wrapper: 폼만 세로 배치 (달력 숨김) */
   .content-wrapper {
     width: 100%;
-    max-width: 1440px;
-    padding: 0 62px;
+    padding: 0 20px;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    gap: 23px;
+    flex-direction: column;
+    gap: 0;
   }
 
-  /* ============ LEFT: 입력 폼 영역 반응형 ============ */
+  /* ★ 달력 영역 숨김 */
+  .calendar-section {
+    display: none;
+  }
+
+  /* ★ mobile-only 입실/퇴실 표시 */
+  .mobile-only {
+    display: flex;
+  }
+
+  /* ============ LEFT: 입력 폼 반응형 ============ */
   .form-section {
     width: 100%;
-    gap: 18px;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* 모바일에서는 라벨을 위에 배치하여 폼 가독성 향상 */
   .form-row {
     flex-direction: column;
     align-items: stretch;
@@ -364,9 +376,15 @@ body {
     width: 100%;
     padding-top: 0;
     font-size: 14px;
+    font-weight: bold;
   }
 
-  /* 총 합계 영역은 가로 정렬을 유지하여 보기 편하게 구성 */
+  .form-row input[type="text"] {
+    height: 42px;
+    font-size: 14px;
+  }
+
+  /* 총 합계 - 가로 배치 유지 */
   .total-row {
     flex-direction: row;
     justify-content: space-between;
@@ -379,43 +397,23 @@ body {
     width: auto;
   }
 
-  /* ============ RIGHT: 캘린더 영역 반응형 ============ */
-  .calendar-section {
-    width: 100%;
-  }
-
-  /* 캘린더 가로 너비를 화면에 꽉 차도록 100%로 유연화 */
-  .calendar-header,
-  .calendar-weekdays,
-  .calendar-grid {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .calendar-grid .day {
-    height: 50px;
-    /* 모바일 터치 영역에 맞춰 높이 조절 */
-    font-size: 13px;
-  }
-
-  /* ============ 하단 버튼 영역 반응형 ============ */
+  /* ============ 하단 버튼 ============ */
   .button-section {
     width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
-    margin-top: 40px;
+    margin-top: 30px;
     gap: 15px;
   }
 
   .button-section button {
     flex: 1;
-    /* 취소/예약하기 버튼이 좌우 절반씩 사이좋게 균등 배분 */
     width: auto;
     height: 50px;
     font-size: 14px;
   }
 
-  /* ============ 예약 완료 모달 반응형 ============ */
+  /* ============ 모달 반응형 ============ */
   .modal-content {
     width: 90%;
     max-width: 350px;

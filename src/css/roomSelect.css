@@ -112,23 +112,26 @@ main {
 
 /* ============ 반응형 레이아웃 (모바일 1000px 이하) ============ */
 @media (max-width: 1000px) {
+
     /* 1. 상단 공백 해결 (사진 붕 뜨는 현상 해결) */
     main {
-        padding-top: 130px; /* 줄어든 모바일 헤더 높이에 맞게 공백 축소 */
+        padding-top: 130px;
+        /* 줄어든 모바일 헤더 높이에 맞게 공백 축소 */
     }
 
     /* 2. 상단 배너 크기 및 글자 축소 */
     .topTitle {
-        height: 250px; 
+        height: 110px;
     }
 
     .topTitle h2 {
-        font-size: 36px;
+        font-size: 24px;
         letter-spacing: 2px;
     }
 
     .topTitle p {
-        font-size: 16px;
+        font-size: 13px;
+        margin-top: 4px;
     }
 
     /* 3. 콘텐츠 영역 양옆 여백 조정 (카드가 좌우로 시원하게 차도록) */
@@ -143,17 +146,21 @@ main {
 
     /* 4. 객실 카드 높이 및 내부 글자 크기 최적화 */
     .room-item {
-        height: 180px; /* 모바일 비율에 맞춰 카드 높이 축소 */
+        height: 180px;
+        /* 모바일 비율에 맞춰 카드 높이 축소 */
     }
 
     .room-label {
-        font-size: 32px; /* 60px에서 32px로 줄여 모바일에 맞춤 */
-        gap: 15px;       /* 글자와 화살표 사이 간격 축소 */
+        font-size: 32px;
+        /* 60px에서 32px로 줄여 모바일에 맞춤 */
+        gap: 15px;
+        /* 글자와 화살표 사이 간격 축소 */
         letter-spacing: 2px;
     }
 
     .room-label i {
-        font-size: 20px; /* 화살표 아이콘 크기 축소 */
+        font-size: 20px;
+        /* 화살표 아이콘 크기 축소 */
     }
 
     /* 5. 하단 취소 규정 여백 조정 */

@@ -52,7 +52,7 @@ main {
     font-size: 14px;
     font-weight: Light;
     text-align: center;
-    
+
 }
 
 .rate-table th,
@@ -88,7 +88,7 @@ main {
     font-family: 'KOROAD_L';
     font-size: 14px;
     line-height: 1.8;
-    
+
 }
 
 .card:nth-child(2) {
@@ -128,22 +128,25 @@ main {
 
 /* ============ 반응형 레이아웃 (모바일 1000px 이하) ============ */
 @media (max-width: 1000px) {
+
     /* 1. 상단 여백 및 배너 축소 */
     main {
-        padding-top: 130px; /* 작아진 모바일 헤더 높이에 맞춤 */
+        padding-top: 130px;
+        /* 작아진 모바일 헤더 높이에 맞춤 */
     }
 
     .topTitle {
-        height: 250px; 
+        height: 110px;
     }
 
     .topTitle h2 {
-        font-size: 36px;
+        font-size: 24px;
         letter-spacing: 2px;
     }
 
     .topTitle p {
-        font-size: 16px;
+        font-size: 13px;
+        margin-top: 4px;
     }
 
     /* 2. 전체 콘텐츠 좌우 여백 및 제목 축소 */
@@ -158,19 +161,24 @@ main {
 
     /* 3. 요금표 가로 스크롤 적용 (표가 깨지지 않도록 방지) */
     .rate-table {
-        display: block; /* 스크롤을 적용하기 위해 블록 요소로 변경 */
-        overflow-x: auto; /* 가로 너비가 넘치면 스크롤바 생성 */
-        white-space: nowrap; /* 글자가 억지로 줄바꿈 되지 않도록 설정 */
+        display: block;
+        /* 스크롤을 적용하기 위해 블록 요소로 변경 */
+        overflow-x: auto;
+        /* 가로 너비가 넘치면 스크롤바 생성 */
+        white-space: nowrap;
+        /* 글자가 억지로 줄바꿈 되지 않도록 설정 */
     }
 
     /* 4. 조건 카드 3단 -> 1단 세로 스택(Stack) 배치 */
     .condition-cards {
-        grid-template-columns: 1fr; /* 1줄에 1개씩 세로로 배치 */
+        grid-template-columns: 1fr;
+        /* 1줄에 1개씩 세로로 배치 */
         margin-top: 40px;
     }
 
     .card {
-        padding: 30px 20px; /* 너무 넓은 내부 여백 축소 */
+        padding: 30px 20px;
+        /* 너무 넓은 내부 여백 축소 */
     }
 
     .card h3 {

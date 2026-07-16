@@ -129,6 +129,8 @@ async function init() {
 }
 
 // ============ 렌더링 ============
+let roomSwiper = null;
+
 function renderRoomInfo() {
     els.roomName.textContent = state.room.name_eng.toUpperCase();
     els.roomDesc.textContent = state.room.desc;
@@ -153,11 +155,38 @@ function renderRoomInfo() {
         els.thumbList.appendChild(li);
     });
 
+    // 모바일일 때만 Swiper 렌더링
+    const swiperWrapper = document.getElementById('roomSwiperWrapper');
+    if (swiperWrapper && window.innerWidth <= 1000) {
+        swiperWrapper.innerHTML = '';
+        state.room.images.forEach((imgName) => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            const img = document.createElement('img');
+            img.src = IMG_BASE + imgName;
+            img.alt = state.room.name_eng;
+            slide.appendChild(img);
+            swiperWrapper.appendChild(slide);
+        });
+
+        if (roomSwiper) {
+            roomSwiper.update();
+        } else {
+            roomSwiper = new Swiper('.room-swiper', {
+                loop: true,
+                pagination: {
+                    el: '.room-swiper .swiper-pagination',
+                    clickable: true,
+                },
+            });
+        }
+    }
+
+    // 추가 인원 드롭다운 동적 생성 (capacity - 기본 2명)
     const maxExtra = state.room.capacity - 2;
     els.extraGuest.innerHTML = '';
 
     if (maxExtra <= 0) {
-        // 스탠다드: 추가 불가
         const opt = document.createElement('option');
         opt.value = '0';
         opt.textContent = '추가 불가';
@@ -165,13 +194,11 @@ function renderRoomInfo() {
         els.extraGuest.disabled = true;
     } else {
         els.extraGuest.disabled = false;
-        // 없음 옵션
         const noneOpt = document.createElement('option');
         noneOpt.value = '0';
         noneOpt.textContent = '없음';
         els.extraGuest.appendChild(noneOpt);
 
-        // 1명 ~ maxExtra명
         for (let i = 1; i <= maxExtra; i++) {
             const opt = document.createElement('option');
             opt.value = String(i);
@@ -180,7 +207,6 @@ function renderRoomInfo() {
         }
     }
 
-    // 상태 리셋
     state.extraGuest = 0;
     els.extraGuest.value = '0';
 }
@@ -480,22 +506,24 @@ function getSeasonId(dateObj) {
     return 1;
 }
 //################################################################
-// 체크인, 체크아웃 날짜 모두 예약완료로 변경
+// 문제: 체크인, 체크아웃 날짜 모두 예약완료로 변경
+// 해결 방안: 2번으로
+// 1. 시간통일
+// 2. 년월일 뽑기
 function isReserved(dateObj) {
+    const target = ymd(dateObj);  // 로컬 기준 YYYY-MM-DD
     return state.reservations.some(r => {
-        // 1. 시간통일
-        // 2. 년월일 뽑기
-        const ci = new Date(r.check_in_date);
-        const co = new Date(r.check_out_date);
-        if (dateObj >= ci && dateObj <= co) console.log(ci.toISOString(), dateObj.toISOString(), dateObj.toLocaleString(), co.toISOString())
-        return dateObj >= ci && dateObj <= co;
+        // 체크인일 <= target < 체크아웃일
+        // (체크아웃일은 다른 사람이 예약 가능하므로 미포함)
+        return target >= r.check_in_date && target < r.check_out_date;
     });
 }
 //################################################################
 
 function hasReservedBetween(start, end) {
     const cur = new Date(start);
-    while (cur <= end) {
+    // end 날짜(체크아웃)는 남이 예약 가능하니 포함해서 검사
+    while (cur < end) {
         if (isReserved(cur)) return true;
         cur.setDate(cur.getDate() + 1);
     }

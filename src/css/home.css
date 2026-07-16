@@ -258,11 +258,16 @@
         font-size: 16px;
     }
 
-    /* 4. 중간 갤러리 (room, event) 이미지 유연하게 변경 */
+    .roomImage,
+    .eventImage {
+        gap: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
     .roomImage img,
     .eventImage img {
-        width: 300px;
-        /* 400px -> 300px 축소 */
-        height: 225px;
+        width: 240px;
+        height: 180px;
     }
 }

@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
     els.modal = document.getElementById('successModal');
     els.modalConfirm = document.getElementById('modalConfirm');
 
+    els.fmCheckIn = document.getElementById('fmCheckIn');
+    els.fmCheckOut = document.getElementById('fmCheckOut');
+
     const savedStart = sessionStorage.getItem('res_startDate');
     const savedEnd = sessionStorage.getItem('res_endDate');
 
@@ -52,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     els.fmRoom.value = state.roomName.toUpperCase();
     els.fmGuests.value = state.extraGuest + '명';
     els.fmTotal.textContent = state.totalPrice.toLocaleString();
+    els.fmCheckIn.value = ymd(state.startDate);
+    els.fmCheckOut.value = ymd(state.endDate);
 
     els.btnCancel.addEventListener('click', (e) => { e.preventDefault(); history.back(); });
     els.btnSubmit.addEventListener('click', validateAndSubmit);

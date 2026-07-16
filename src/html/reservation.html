@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="/src/css/my-header.css" />
   <link rel="stylesheet" href="/src/css/my-footer.css" />
   <link rel="stylesheet" href="/src/css/reservation.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
   <script src="/src/js/my-header.js" defer></script>
   <script src="/src/js/my-footer.js" defer></script>
   <script src="/src/js/reservation.js" defer></script>
@@ -33,14 +35,29 @@
       <!-- 좌: 이미지 / 우: 캘린더+예약 -->
       <div class="reservation-body">
 
-        <!-- LEFT: 이미지 영역 -->
+        <!-- LEFT: 이미지 영역 (방 설명 포함) -->
         <div class="room-images">
+          <!-- 데스크톱: 메인 이미지 -->
           <div class="main-image">
             <img id="mainImage" src="" alt="main room image" />
           </div>
+
+          <!-- 데스크톱: 썸네일 목록 -->
           <ul class="thumb-list" id="thumbList">
             <!-- JS: thumbnail li들 append -->
           </ul>
+
+          <!-- 모바일: Swiper 슬라이드 -->
+          <div class="swiper room-swiper">
+            <div class="swiper-wrapper" id="roomSwiperWrapper">
+              <!-- JS: swiper-slide들 append -->
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+
+          <!-- 방 설명 (이미지 바로 아래) -->
+          <p class="room-desc" id="roomDesc"></p>
+          <p class="room-desc-eng" id="roomDescEng"></p>
         </div>
 
         <!-- RIGHT: 캘린더 + 옵션 + 결제 -->
@@ -96,10 +113,6 @@
           </div>
         </div>
       </div>
-
-      <!-- 방 설명 -->
-      <p class="room-desc" id="roomDesc"></p>
-      <p class="room-desc-eng" id="roomDescEng"></p>
     </div>
   </main>
 

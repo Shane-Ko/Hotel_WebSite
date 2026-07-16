@@ -1,28 +1,28 @@
 /* ============ 히어로 ============ */
 /* 상단 배너 */
 .topTitle {
-    background-image: url('/src/image/booking/booking.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
+  background-image: url('/src/image/booking/booking.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
 }
 
 .topTitle h2 {
-    font-family: 'KOROAD_M';
-    font-size: 60px;
-    letter-spacing: 4px;
+  font-family: 'KOROAD_M';
+  font-size: 60px;
+  letter-spacing: 4px;
 }
 
 .topTitle p {
-    font-family: 'KOROAD_L';
-    font-size: 22px;
-    margin-top: 10px;
+  font-family: 'KOROAD_L';
+  font-size: 22px;
+  margin-top: 10px;
 }
 
 body {
@@ -36,6 +36,7 @@ body {
   justify-content: center;
   padding: 0 0 60px 0;
 }
+
 .reservation-container {
   width: 100%;
   max-width: 1440px;
@@ -73,18 +74,21 @@ body {
   flex-direction: column;
   gap: 14px;
 }
+
 .main-image {
   width: 700px;
-  height: 704px; /* 총 818에서 썸네일(100) + gap(14) 빼면 704 */
+  height: 704px;
   overflow: hidden;
-  border-top: 4px solid #2a3a2f; /* 상단 진한 초록 라인 (사진 참고) */
+  border-top: 4px solid #2a3a2f;
 }
+
 .main-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
+
 .thumb-list {
   display: flex;
   flex-direction: row;
@@ -93,6 +97,7 @@ body {
   padding: 0;
   margin: 0;
 }
+
 .thumb-list li {
   width: 100px;
   height: 100px;
@@ -100,15 +105,40 @@ body {
   cursor: pointer;
   transition: opacity 0.2s;
 }
-.thumb-list li:hover { opacity: 0.8; }
+
+.thumb-list li:hover {
+  opacity: 0.8;
+}
+
 .thumb-list li.active {
   outline: 2px solid #333;
 }
+
 .thumb-list img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* 데스크톱에서는 Swiper 숨김 */
+.room-swiper {
+  display: none;
+}
+
+/* 방 설명 (이미지 영역 안, 데스크톱 기본) */
+.room-desc,
+.room-desc-eng {
+  width: 100%;
+  margin: 20px 0 0;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.room-desc-eng {
+  color: #666;
+  margin-top: 8px;
 }
 
 /* ============ RIGHT: 캘린더 + 예약 ============ */
@@ -130,6 +160,7 @@ body {
   gap: 20px;
   background: #fff;
 }
+
 .calendar-header button {
   border: none;
   background: transparent;
@@ -139,6 +170,7 @@ body {
   width: 24px;
   height: 24px;
 }
+
 .cal-title {
   font-size: 15px;
   min-width: 120px;
@@ -158,8 +190,14 @@ body {
   font-size: 14px;
   color: #333;
 }
-.calendar-weekdays .sun { color: #e74c3c; }
-.calendar-weekdays .sat { color: #333; }
+
+.calendar-weekdays .sun {
+  color: #e74c3c;
+}
+
+.calendar-weekdays .sat {
+  color: #333;
+}
 
 /* 날짜 그리드 */
 .calendar-grid {
@@ -167,6 +205,7 @@ body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
+
 .calendar-grid .day {
   height: 60px;
   display: flex;
@@ -179,17 +218,29 @@ body {
   position: relative;
   gap: 2px;
 }
-.calendar-grid .day.sun { color: #e74c3c; }
-.calendar-grid .day.holiday { color: #e74c3c; }
+
+.calendar-grid .day.sun {
+  color: #e74c3c;
+}
+
+.calendar-grid .day.holiday {
+  color: #e74c3c;
+}
+
 .calendar-grid .day .sub {
   font-size: 11px;
   color: #e74c3c;
 }
+
 .calendar-grid .day.disabled {
   color: #cfcfcf;
   cursor: not-allowed;
 }
-.calendar-grid .day.disabled .sub { color: #cfcfcf; }
+
+.calendar-grid .day.disabled .sub {
+  color: #cfcfcf;
+}
+
 .calendar-grid .day.selected {
   background: #2ecc71;
   color: #fff;
@@ -207,8 +258,7 @@ body {
   color: #fff;
 }
 
-
-/* 추가 인원 */
+/* 추가 인원 (데스크톱 기본) */
 .extra-guest-row {
   width: 560px;
   height: 30px;
@@ -216,13 +266,17 @@ body {
   align-items: center;
   gap: 15px;
   padding: 3px 5px 3px 15px;
-  border: 0.5px solid #d8d8d8;
-  border-radius: 2px;
+  border: none;
+  border-top: 1px solid #d8d8d8;
+  border-bottom: 1px solid #d8d8d8;
+  border-radius: 0;
 }
+
 .extra-guest-row .label {
   font-size: 13px;
   color: #333;
 }
+
 .extra-guest-row .dropdown select {
   width: 83px;
   height: 24px;
@@ -232,6 +286,7 @@ body {
   background: #fff;
   border-radius: 2px;
 }
+
 .extra-guest-row .desc {
   font-size: 12px;
   color: #999;
@@ -247,8 +302,17 @@ body {
   border-bottom: 1px solid #000;
   padding: 0 5px;
 }
-.total-row .label { font-size: 14px; color: #333; }
-.total-row .price { font-size: 14px; color: #333; }
+
+.total-row .label {
+  font-size: 14px;
+  color: #333;
+}
+
+.total-row .price {
+  font-size: 14px;
+  color: #333;
+}
+
 .total-row .price strong {
   font-size: 18px;
   font-weight: 600;
@@ -263,6 +327,7 @@ body {
   justify-content: space-between;
   gap: 20px;
 }
+
 .btn-cancel,
 .btn-reserve {
   width: 270px;
@@ -271,27 +336,21 @@ body {
   font-size: 14px;
   cursor: pointer;
 }
+
 .btn-cancel {
   background: #fff;
   color: #333;
 }
+
 .btn-reserve {
   background: #8a8a8a;
   color: #fff;
   border: none;
 }
-.btn-reserve:hover { background: #6d6d6d; }
 
-/* 방 설명 */
-.room-desc,
-.room-desc-eng {
-  width: 1294px;
-  margin: 0 auto;
-  font-size: 13px;
-  color: #333;
-  line-height: 1.6;
+.btn-reserve:hover {
+  background: #6d6d6d;
 }
-.room-desc-eng { color: #666; }
 
 /* ============ 공용 모달 ============ */
 .modal-overlay {
@@ -303,9 +362,11 @@ body {
   align-items: center;
   z-index: 1000;
 }
+
 .modal-overlay.show {
   display: flex;
 }
+
 .modal-box {
   background: #fff;
   padding: 50px 60px 40px;
@@ -314,6 +375,7 @@ body {
   border-radius: 2px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
+
 .modal-message {
   font-size: 16px;
   color: #333;
@@ -321,6 +383,7 @@ body {
   line-height: 1.5;
   white-space: pre-line;
 }
+
 .modal-confirm {
   padding: 10px 32px;
   background: #333;
@@ -329,6 +392,7 @@ body {
   cursor: pointer;
   font-size: 14px;
 }
+
 .modal-confirm:hover {
   background: #000;
 }
@@ -343,16 +407,19 @@ body {
   align-items: center;
   z-index: 1001;
 }
+
 .form-modal-overlay.show {
   display: flex;
 }
+
 .form-modal-box {
   background: #fff;
   padding: 50px 60px;
   width: 500px;
   border-radius: 4px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
 .form-modal-title {
   font-family: 'KOROAD_M', sans-serif;
   font-size: 24px;
@@ -360,6 +427,7 @@ body {
   margin-bottom: 40px;
   color: #333;
 }
+
 .form-row {
   display: flex;
   align-items: center;
@@ -367,12 +435,14 @@ body {
   border-bottom: 1px solid #f0f0f0;
   padding-bottom: 15px;
 }
+
 .form-row label {
   width: 100px;
   font-size: 14px;
   color: #555;
   font-weight: bold;
 }
+
 .form-row input {
   flex: 1;
   height: 40px;
@@ -381,49 +451,59 @@ body {
   font-size: 14px;
   border-radius: 2px;
 }
+
 .form-row input:disabled {
   background: #f7f7f7;
   border: none;
   color: #666;
 }
+
 .form-input-wrap {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
+
 .form-input-wrap input {
   width: 100%;
 }
+
 .form-error {
   color: #e74c3c;
   font-size: 12px;
   margin-top: 6px;
   display: none;
 }
+
 .form-row.total {
   border-bottom: none;
   justify-content: space-between;
   margin-top: 40px;
   padding-bottom: 0;
 }
+
 .form-row.total label {
   font-size: 16px;
 }
+
 .form-total {
   font-size: 16px;
   color: #333;
 }
+
 .form-total strong {
   font-size: 24px;
   font-weight: 700;
   margin-right: 4px;
 }
+
 .form-btn-row {
   display: flex;
   justify-content: space-between;
   gap: 15px;
   margin-top: 30px;
 }
+
 .form-btn-row button {
   flex: 1;
   height: 55px;
@@ -432,161 +512,224 @@ body {
   border-radius: 2px;
   transition: background 0.2s;
 }
+
 .fm-cancel {
   background: #fff;
   border: 1px solid #ddd;
   color: #333;
 }
+
 .fm-cancel:hover {
   background: #f9f9f9;
 }
+
 .fm-submit {
   background: #2a3a2f;
   color: #fff;
   border: none;
 }
+
 .fm-submit:hover {
   background: #1e2922;
 }
 
 /* ============ 반응형 레이아웃 (모바일 1000px 이하) ============ */
 @media (max-width: 1000px) {
-    /* 1. 상단 공백 해결 및 배너 축소 */
-    body {
-        padding-top: 130px; /* 작아진 모바일 헤더 높이에 맞춤 (사진 붕 뜸 해결) */
-    }
 
-    .topTitle {
-        height: 250px;
-    }
+  /* 1. 상단 공백 및 배너 축소 */
+  body {
+    padding-top: 110px;
+  }
 
-    .topTitle h2 {
-        font-size: 36px;
-        letter-spacing: 2px;
-    }
+  .topTitle {
+    height: 110px;
+  }
 
-    .topTitle p {
-        font-size: 16px;
-    }
+  .topTitle h2 {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
 
-    /* 2. 메인 영역 패딩 조정 */
-    .reservation-main {
-        padding: 0 0 40px 0;
-    }
+  .topTitle p {
+    font-size: 13px;
+    margin-top: 4px;
+  }
 
-    .reservation-container {
-        width: 100%;
-        padding: 0 20px;
-        box-sizing: border-box;
-    }
+  /* 2. 메인 영역 패딩 조정 */
+  .reservation-main {
+    padding: 0 0 40px 0;
+  }
 
-    .room-name {
-        font-size: 24px;
-        margin-top: 35px;
-        margin-bottom: 25px;
-    }
+  .reservation-container {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
 
-    /* 3. 좌(이미지) / 우(캘린더) -> 모바일에서는 위아래(세로)로 배치 */
-    .reservation-body {
-        flex-direction: column;
-        gap: 35px;
-        align-items: center;
-    }
+  .room-name {
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    height: auto;
+  }
 
-    /* ============ LEFT: 이미지 영역 반응형 ============ */
-    .room-images {
-        width: 100%;
-        max-width: 100%;
-    }
+  /* 3. 좌/우 세로 배치 */
+  .reservation-body {
+    flex-direction: column;
+    gap: 25px;
+    align-items: stretch;
+  }
 
-    .main-image {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 4 / 3; /* 모바일 화면 비율에 알맞게 조절 */
-        max-height: 450px;
-    }
+  /* ============ LEFT: 이미지 영역 ============ */
+  .room-images {
+    width: 100%;
+    max-width: 100%;
+    gap: 0;
+  }
 
-    .thumb-list {
-        justify-content: flex-start;
-        overflow-x: auto; /* 썸네일이 가로로 넘칠 경우 스크롤되도록 설정 */
-        padding-bottom: 8px;
-    }
+  /* 모바일: 메인 이미지 + 썸네일 숨기고 Swiper 표시 */
+  .main-image,
+  .thumb-list {
+    display: none;
+  }
 
-    .thumb-list li {
-        width: 75px; /* 썸네일 크기 살짝 축소 */
-        height: 75px;
-        flex-shrink: 0; /* 크기가 유지되도록 설정 */
-    }
+  .room-swiper {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 450px;
+  }
 
-    /* ============ RIGHT: 캘린더 & 예약 영역 반응형 ============ */
-    .room-booking {
-        width: 100%;
-        max-width: 100%;
-        gap: 15px;
-    }
+  .room-swiper .swiper-slide {
+    width: 100%;
+    height: 100%;
+  }
 
-    /* 560px 고정 가로 너비들을 전부 100%로 유연하게 변경 */
-    .calendar-header,
-    .calendar-weekdays,
-    .calendar-grid,
-    .extra-guest-row,
-    .total-row,
-    .btn-row {
-        width: 100% !important;
-        box-sizing: border-box;
-    }
+  .room-swiper .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-    .calendar-grid .day {
-        height: 50px; /* 모바일 터치 높이에 최적화 */
-        font-size: 13px;
-    }
+  .room-swiper .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.6;
+  }
 
-    /* 추가 인원 드롭다운 줄바꿈 대응 */
-    .extra-guest-row {
-        height: auto;
-        padding: 10px 15px;
-        flex-wrap: wrap; 
-        gap: 10px;
-    }
+  .room-swiper .swiper-pagination-bullet-active {
+    background: #fff;
+    opacity: 1;
+  }
 
-    /* 예약/취소 버튼 가로 비율 조정 */
-    .btn-cancel,
-    .btn-reserve {
-        width: 48%; /* 가로로 나란히 사이좋게 절반씩 차지 */
-        height: 48px;
-    }
+  /* 방 설명 */
+  .room-desc,
+  .room-desc-eng {
+    font-size: 14px;
+    font-weight: 300;
+    font-family: 'KOROAD_L';
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+  }
 
-    /* ============ 방 설명 반응형 ============ */
-    .room-desc,
-    .room-desc-eng {
-        width: 100%;
-        box-sizing: border-box;
-        margin-top: 30px;
-        padding: 0;
-    }
 
-    /* ============ 모달 창(Modal) 반응형 대응 ============ */
-    /* 모바일 기기 화면보다 창이 커져서 잘리는 현상 방지 */
-    .modal-box {
-        min-width: unset;
-        width: 90%;
-        max-width: 400px;
-        padding: 35px 25px 25px;
-    }
+  /* ============ RIGHT: 캘린더 & 예약 영역 ============ */
+  .room-booking {
+    width: 100%;
+    max-width: 100%;
+    gap: 15px;
+  }
 
-    .form-modal-box {
-        width: 90%;
-        max-width: 450px;
-        padding: 35px 25px;
-    }
+  /* 560px 고정 가로 너비들 → 100% */
+  .calendar-header,
+  .calendar-weekdays,
+  .calendar-grid,
+  .extra-guest-row,
+  .total-row,
+  .btn-row {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
 
-    .form-modal-title {
-        font-size: 20px;
-        margin-bottom: 25px;
-    }
+  .calendar-grid .day {
+    height: 50px;
+    font-size: 13px;
+  }
 
-    .form-row label {
-        width: 80px; /* 모바일 입력창 영역 확보를 위해 라벨 너비 축소 */
-        font-size: 13px;
-    }
+  /* 추가 인원 - 좌우 테두리 제거, grid 2x2 배치 */
+  .extra-guest-row {
+    height: auto;
+    padding: 15px 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* label auto, dropdown이 남은 공간 */
+    grid-template-rows: auto auto;
+    row-gap: 8px;
+    column-gap: 12px;
+    align-items: center;
+
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    border-radius: 0;
+  }
+
+  .extra-guest-row .label {
+    font-size: 14px;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .extra-guest-row .dropdown {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+    /* 드롭다운을 라벨 바로 옆으로 붙임 */
+  }
+
+  .extra-guest-row .dropdown select {
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .extra-guest-row .desc {
+    font-size: 12px;
+    color: #999;
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  /* 예약/취소 버튼 */
+  .btn-cancel,
+  .btn-reserve {
+    width: 48%;
+    height: 48px;
+  }
+
+  /* ============ 모달 반응형 ============ */
+  .modal-box {
+    min-width: unset;
+    width: 90%;
+    max-width: 400px;
+    padding: 35px 25px 25px;
+  }
+
+  .form-modal-box {
+    width: 90%;
+    max-width: 450px;
+    padding: 35px 25px;
+  }
+
+  .form-modal-title {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .form-row label {
+    width: 80px;
+    font-size: 13px;
+  }
 }

@@ -36,7 +36,7 @@ my-header header {
     z-index: 100;
     background-color: #FFFFFF;
     color: black;
-    
+
     padding: 15px 24px 41px;
     /* 상 좌우 하 */
     display: flex;
@@ -127,6 +127,7 @@ nav li:hover>ul {
 }
 
 @media (max-width: 1000px) {
+
     /* 1. 로고 및 헤더 기본 간격 조정 */
     my-header h1 {
         font-size: 50px;
@@ -137,46 +138,62 @@ nav li:hover>ul {
     my-header header {
         gap: 20px;
         padding: 10px 16px;
+        align-items: stretch;
+        /* 로고는 중앙, nav는 왼쪽 정렬을 각자 조정 */
     }
 
-    /* 2. 메인 메뉴 가운데 정렬 및 자동 줄바꿈 (방금 추가한 부분) */
-    my-header nav > ul {
+    /* 로고만 중앙 정렬 유지 */
+    my-header h1 {
+        align-self: center;
+    }
+
+    /* 2. 메인 메뉴 왼쪽 정렬 */
+    my-header nav {
+        width: 100%;
+        padding-bottom: 8px;
+    }
+
+    my-header nav>ul {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
+        /* ← center → flex-start (왼쪽 정렬) */
         flex-wrap: wrap;
-        gap: 15px;
-        padding: 0 10px;
+        gap: 20px;
+        padding: 0 4px;
     }
 
-    my-header nav > ul > li {
+    my-header nav>ul>li {
         padding: 5px 4px;
         font-size: 13px;
         position: static;
     }
 
-    /* 3. 모바일 클릭 서브메뉴 제어 (기존 Hover 차단 및 클릭 이벤트 연동) */
+    /* 3. 서브메뉴 표시 시 왼쪽 정렬 */
     nav li ul {
-        display: none; 
-    }
-
-    nav li:hover > ul {
         display: none;
     }
 
-    nav li.is-active > ul {
+    /* 모바일에서는 hover 완전 차단 */
+    my-header nav li:hover>ul,
+    my-header nav li>ul {
+        display: none;
+    }
+
+    /* is-active일 때만 표시 */
+    my-header nav li.is-active>ul {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center; /* 서브메뉴도 예쁘게 가운데 정렬 */
-        gap: 15px;
-        
+        justify-content: flex-start;
+        gap: 20px;
+
         position: absolute;
         left: 0;
-        top: 100%; 
+        top: 100%;
         width: 100%;
         height: 35px;
-        padding: 4px 16px;
-        
+        padding: 4px 20px;
+
         background: white;
         border-top: 1px solid #ddd;
     }
@@ -184,10 +201,5 @@ nav li:hover>ul {
     nav li ul li {
         font-size: 12px;
         padding: 0;
-    }
-
-    my-header nav {
-        width: 100%;
-        padding-bottom: 8px;
     }
 }

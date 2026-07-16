@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +12,7 @@
   <script src="/src/js/my-footer.js" defer></script>
   <script src="/src/js/insertInfo.js" defer></script>
 </head>
+
 <body>
   <my-header></my-header>
 
@@ -25,16 +27,28 @@
     <h3 class="page-title">예약 등록</h3>
 
     <div class="content-wrapper">
-      
+
       <div class="form-section">
         <div class="form-row">
           <label>ROOM</label>
           <input type="text" id="fmRoom" value="STANDARD" disabled />
         </div>
+        
         <div class="form-row">
           <label>추가인원</label>
           <input type="text" id="fmGuests" value="0명" disabled />
         </div>
+
+        <div class="form-row mobile-only">
+          <label>입실</label>
+          <input type="text" id="fmCheckIn" disabled />
+        </div>
+
+        <div class="form-row mobile-only">
+          <label>퇴실</label>
+          <input type="text" id="fmCheckOut" disabled />
+        </div>
+
         <div class="form-row">
           <label>예약명</label>
           <div class="input-wrap">
@@ -42,6 +56,7 @@
             <span class="error-msg" id="fmNameError">필수 입력 값입니다.</span>
           </div>
         </div>
+
         <div class="form-row">
           <label>전화번호</label>
           <div class="input-wrap">
@@ -49,7 +64,7 @@
             <span class="error-msg" id="fmPhoneError">필수 입력 값입니다.</span>
           </div>
         </div>
-        
+
         <div class="form-row total-row">
           <label>총 합계</label>
           <div class="total-price"><span id="fmTotal">150,000</span> 원</div>
@@ -84,4 +99,5 @@
 
   <my-footer></my-footer>
 </body>
+
 </html>
