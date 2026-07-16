@@ -49,10 +49,10 @@ class MyHeader extends HTMLElement {
 
         links.forEach(function (link) {
             const li = document.createElement("li");
-            const a = document.createElement("a");
-            a.textContent = link.text;
-            a.href = link.href;
-            li.appendChild(a);
+            const span = document.createElement("a");
+            span.textContent = link.text;
+            span.href = link.href;
+            li.appendChild(span);
 
             const subUl = document.createElement("ul");
             link.subs.forEach(function (sub) {
@@ -67,8 +67,8 @@ class MyHeader extends HTMLElement {
             li.appendChild(subUl);
 
             // ========== 추가된 모바일 클릭 이벤트 부분 ==========
-            a.addEventListener("click", function (e) {
-                // 화면 너비가 1000px 이하(모바일)일 때만 작동
+            span.addEventListener("click", function (e) {
+                // 화면 너비가 1000px 이하(모바일)일 때만
                 if (window.innerWidth <= 1000) {
                     // 서브메뉴가 있는 경우 기본 링크 이동 방지
                     if (link.subs.length > 0) {
@@ -116,3 +116,5 @@ customElements.define("my-header", MyHeader);
 //   </li>
 //   ...
 // </ul>
+
+

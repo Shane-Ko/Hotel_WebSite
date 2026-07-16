@@ -65,19 +65,23 @@ body {
   display: flex;
   gap: 23px;
   justify-content: center;
+  width: 100%;
 }
 
 /* ============ LEFT: 이미지 ============ */
 .room-images {
-  width: 700px;
+  flex: 1 1 700px;
+  max-width: 700px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
 .main-image {
-  width: 700px;
-  height: 704px;
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 700 / 704;
   overflow: hidden;
   border-top: 4px solid #2a3a2f;
 }
@@ -96,6 +100,7 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
+  flex-wrap: wrap;
 }
 
 .thumb-list li {
@@ -126,7 +131,7 @@ body {
   display: none;
 }
 
-/* 방 설명 (이미지 영역 안, 데스크톱 기본) */
+/* 방 설명 */
 .room-desc,
 .room-desc-eng {
   width: 100%;
@@ -143,7 +148,9 @@ body {
 
 /* ============ RIGHT: 캘린더 + 예약 ============ */
 .room-booking {
-  width: 560px;
+  flex: 0 1 560px;
+  max-width: 560px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 23px;
@@ -151,7 +158,7 @@ body {
 
 /* 캘린더 헤더 */
 .calendar-header {
-  width: 560px;
+  width: 100%;
   height: 70px;
   padding: 16px 0;
   display: flex;
@@ -179,7 +186,7 @@ body {
 
 /* 요일 */
 .calendar-weekdays {
-  width: 560px;
+  width: 100%;
   height: 44px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -201,7 +208,7 @@ body {
 
 /* 날짜 그리드 */
 .calendar-grid {
-  width: 560px;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
@@ -260,12 +267,13 @@ body {
 
 /* 추가 인원 (데스크톱 기본) */
 .extra-guest-row {
-  width: 560px;
+  width: 100%;
   height: 30px;
   display: flex;
   align-items: center;
   gap: 15px;
   padding: 3px 5px 3px 15px;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid #d8d8d8;
   border-bottom: 1px solid #d8d8d8;
@@ -294,13 +302,14 @@ body {
 
 /* 총 합계 */
 .total-row {
-  width: 560px;
+  width: 100%;
   height: 42px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #000;
   padding: 0 5px;
+  box-sizing: border-box;
 }
 
 .total-row .label {
@@ -321,7 +330,7 @@ body {
 
 /* 버튼 */
 .btn-row {
-  width: 560px;
+  width: 100%;
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -330,7 +339,7 @@ body {
 
 .btn-cancel,
 .btn-reserve {
-  width: 270px;
+  flex: 1;
   height: 50px;
   border: 1px solid #d8d8d8;
   font-size: 14px;
@@ -582,6 +591,7 @@ body {
 
   /* ============ LEFT: 이미지 영역 ============ */
   .room-images {
+    flex: none;
     width: 100%;
     max-width: 100%;
     gap: 0;
@@ -633,23 +643,12 @@ body {
     padding: 0;
   }
 
-
   /* ============ RIGHT: 캘린더 & 예약 영역 ============ */
   .room-booking {
+    flex: none;
     width: 100%;
     max-width: 100%;
     gap: 15px;
-  }
-
-  /* 560px 고정 가로 너비들 → 100% */
-  .calendar-header,
-  .calendar-weekdays,
-  .calendar-grid,
-  .extra-guest-row,
-  .total-row,
-  .btn-row {
-    width: 100% !important;
-    box-sizing: border-box;
   }
 
   .calendar-grid .day {
@@ -657,13 +656,12 @@ body {
     font-size: 13px;
   }
 
-  /* 추가 인원 - 좌우 테두리 제거, grid 2x2 배치 */
+  /* 추가 인원 - grid 2x2 배치 */
   .extra-guest-row {
     height: auto;
     padding: 15px 0;
     display: grid;
     grid-template-columns: auto 1fr;
-    /* label auto, dropdown이 남은 공간 */
     grid-template-rows: auto auto;
     row-gap: 8px;
     column-gap: 12px;
@@ -686,7 +684,6 @@ body {
     grid-column: 2;
     grid-row: 1;
     justify-self: start;
-    /* 드롭다운을 라벨 바로 옆으로 붙임 */
   }
 
   .extra-guest-row .dropdown select {
