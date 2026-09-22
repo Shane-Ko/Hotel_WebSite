@@ -2,7 +2,7 @@
  * reservation.js
  */
 
-const API_BASE = 'http://localhost:3000';
+const API_BASE = '';
 const IMG_BASE = '/src/image/rooms/';
 
 // ============ 전역 상태 ============
